@@ -1,0 +1,145 @@
+<html>
+<head>
+<script>
+    console.log('Array foreach');
+    console.log('(Write value, index and array)');
+    let myArray = ['one', 'two', 'three', 'four'];
+    myArray.forEach((value, index, array) => {
+        console.log(value); // current value
+        console.log(index); // curent index
+        console.log(array); // entire array
+    });
+    
+    console.log('');
+    console.log('Array filter');
+    console.log('(if % 2 => value)');
+    let numberArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let oddNumbers = numberArray.filter((value, index, array) => {
+        if (value % 2) {
+            console.log(value);
+            return value;
+        }
+    });
+    
+    console.log('');
+    console.log('Array map');
+    console.log('(value * 10)')
+    let mappedValue = [1, 2, 3].map((value, currentValue, currentIndex, array) => {
+        return value * 10;
+    });
+    console.log(mappedValue); // returns [10, 20, 30]
+
+    console.log('');
+    console.log('Array reduce');
+    console.log('(value + currentValue)');
+    let reducedValue = [10, 1, 2, 3, 4, 5, 6, 7, 8, 9].reduce((value, currentValue, currentIndex, array) => {
+        return value + currentValue;
+    });
+    console.log(reducedValue); // 55
+    
+    console.log('');
+    console.log('Function');
+    function addNumbers(num1, num2) {
+        return num1 + num2;
+    }
+    let result = addNumbers(2, 3);
+    console.log(result);
+
+    console.log('');
+    console.log('Arrow function');
+    console.log('((num1, num2) => { num1 + num2 })');
+    const arrowFun = (num1, num2) => { num1 + num2 };
+    const arrowFun2 = num1 => num1 * 2;
+    // with no argument
+    const arrowFun3 = _ => 2;
+    const arrowFun4 = () => 2;
+
+    console.log('');
+    console.log('this');
+    console.log(this);
+
+    console.log('');
+    console.log('bind');
+    console.log('You can set the object that the keyword \'this\' will use as a starting point');
+    var myObj = {
+        person: "Friend"
+    }
+    function sayHello() {
+        console.log("Hello " + this.person);
+    }
+    sayHello(); // returns Hello undefined
+    var tryAgain = sayHello.bind(myObj); // assigning the value of this to the object myObj
+    tryAgain(); // returns Hello Friend
+
+    console.log('');
+    console.log('call');
+    console.log('Not only can you define the execution context, but you can also pass information to the method that you want to execute');
+    function sayHello2 (message) {
+        console.log(message, this.mainCharacter);
+    }
+
+    const characters = {
+        mainCharacter: "Elliot"
+    }
+
+    sayHello2.call(characters, "Hello "); // return Hello Elliot
+
+    console.log('');
+    console.log('apply');
+    console.log('Apply method expects an array');
+    function sayHello3(firstName, secondName, thirdName){
+        console.log(this.message, firstName);
+        console.log(this.message, secondName);
+        console.log(this.message, thirdName);
+    }
+
+    const show = {
+        message: "Hello"
+    }
+    sayHello3(show, ["Elliot ", " Tyrell ", "Dominique "]);
+
+    console.log('');
+    console.log('Scopes');
+    function sayHello4(firstName, lastName) {
+        let msg = "Greetings ";
+        function intro() {
+            return msg + firstName + " " + lastName;
+        }
+        return intro();
+    }
+
+    console.log(sayHello4("Professor", "Falken")); // return "Greetings Professor Falken"
+
+    console.log('');
+    console.log('???');
+    const sayHello5 = function () {
+        let greetingMsg = "Greetings ";
+
+        function msgTo(firstName, lastName) {
+            greetingMsg = greetingMsg + firstName + " " + lastName;
+        }
+        return {
+            sendGreeting: function (firstName, lastName) {
+                msgTo(firstName, lastName);
+            },
+            getMsg: function () {
+                return greetingMsg;
+            }
+        }
+    }
+    const createMsg = sayHello5();
+    createMsg.sendGreeting("Professor", "Falken");
+    console.log(createMsg.getMsg()); // return "Greetings Professor Falken"
+
+    // Events
+    console.log('');
+    console.log('addEventListener');
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log(this); // return #document
+    });
+</script>
+</head>
+<body>
+    Look at the console...
+</body>
+</html>
