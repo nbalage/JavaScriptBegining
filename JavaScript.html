@@ -1,145 +1,305 @@
 <html>
 <head>
-<script>
-    console.log('Array foreach');
-    console.log('(Write value, index and array)');
-    let myArray = ['one', 'two', 'three', 'four'];
-    myArray.forEach((value, index, array) => {
-        console.log(value); // current value
-        console.log(index); // curent index
-        console.log(array); // entire array
-    });
-    
-    console.log('');
-    console.log('Array filter');
-    console.log('(if % 2 => value)');
-    let numberArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    let oddNumbers = numberArray.filter((value, index, array) => {
-        if (value % 2) {
-            console.log(value);
-            return value;
+    <script>
+        console.log('Array foreach');
+        console.log('(Write value, index and array)');
+        let myArray = ['one', 'two', 'three', 'four'];
+        myArray.forEach((value, index, array) => {
+            console.log(value); // current value
+            console.log(index); // curent index
+            console.log(array); // entire array
+        });
+
+        console.log('');
+        console.log('Array filter');
+        console.log('(if % 2 => value)');
+        let numberArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        let oddNumbers = numberArray.filter((value, index, array) => {
+            if (value % 2) {
+                console.log(value);
+                return value;
+            }
+        });
+
+        console.log('');
+        console.log('Array map');
+        console.log('(value * 10)')
+        let mappedValue = [1, 2, 3].map((value, currentValue, currentIndex, array) => {
+            return value * 10;
+        });
+        console.log(mappedValue); // returns [10, 20, 30]
+
+        console.log('');
+        console.log('Array reduce');
+        console.log('(value + currentValue)');
+        let reducedValue = [10, 1, 2, 3, 4, 5, 6, 7, 8, 9].reduce((value, currentValue, currentIndex, array) => {
+            return value + currentValue;
+        });
+        console.log(reducedValue); // 55
+
+        console.log('');
+        console.log('Function');
+        function addNumbers(num1, num2) {
+            return num1 + num2;
         }
-    });
-    
-    console.log('');
-    console.log('Array map');
-    console.log('(value * 10)')
-    let mappedValue = [1, 2, 3].map((value, currentValue, currentIndex, array) => {
-        return value * 10;
-    });
-    console.log(mappedValue); // returns [10, 20, 30]
+        let result = addNumbers(2, 3);
+        console.log(result);
 
-    console.log('');
-    console.log('Array reduce');
-    console.log('(value + currentValue)');
-    let reducedValue = [10, 1, 2, 3, 4, 5, 6, 7, 8, 9].reduce((value, currentValue, currentIndex, array) => {
-        return value + currentValue;
-    });
-    console.log(reducedValue); // 55
-    
-    console.log('');
-    console.log('Function');
-    function addNumbers(num1, num2) {
-        return num1 + num2;
-    }
-    let result = addNumbers(2, 3);
-    console.log(result);
+        console.log('');
+        console.log('Arrow function');
+        console.log('((num1, num2) => { num1 + num2 })');
+        const arrowFun = (num1, num2) => { num1 + num2 };
+        const arrowFun2 = num1 => num1 * 2;
+        // with no argument
+        const arrowFun3 = _ => 2;
+        const arrowFun4 = () => 2;
 
-    console.log('');
-    console.log('Arrow function');
-    console.log('((num1, num2) => { num1 + num2 })');
-    const arrowFun = (num1, num2) => { num1 + num2 };
-    const arrowFun2 = num1 => num1 * 2;
-    // with no argument
-    const arrowFun3 = _ => 2;
-    const arrowFun4 = () => 2;
+        console.log('');
+        console.log('this');
+        console.log(this);
 
-    console.log('');
-    console.log('this');
-    console.log(this);
-
-    console.log('');
-    console.log('bind');
-    console.log('You can set the object that the keyword \'this\' will use as a starting point');
-    var myObj = {
-        person: "Friend"
-    }
-    function sayHello() {
-        console.log("Hello " + this.person);
-    }
-    sayHello(); // returns Hello undefined
-    var tryAgain = sayHello.bind(myObj); // assigning the value of this to the object myObj
-    tryAgain(); // returns Hello Friend
-
-    console.log('');
-    console.log('call');
-    console.log('Not only can you define the execution context, but you can also pass information to the method that you want to execute');
-    function sayHello2 (message) {
-        console.log(message, this.mainCharacter);
-    }
-
-    const characters = {
-        mainCharacter: "Elliot"
-    }
-
-    sayHello2.call(characters, "Hello "); // return Hello Elliot
-
-    console.log('');
-    console.log('apply');
-    console.log('Apply method expects an array');
-    function sayHello3(firstName, secondName, thirdName){
-        console.log(this.message, firstName);
-        console.log(this.message, secondName);
-        console.log(this.message, thirdName);
-    }
-
-    const show = {
-        message: "Hello"
-    }
-    sayHello3(show, ["Elliot ", " Tyrell ", "Dominique "]);
-
-    console.log('');
-    console.log('Scopes');
-    function sayHello4(firstName, lastName) {
-        let msg = "Greetings ";
-        function intro() {
-            return msg + firstName + " " + lastName;
+        console.log('');
+        console.log('bind');
+        console.log('You can set the object that the keyword \'this\' will use as a starting point');
+        var myObj = {
+            person: "Friend"
         }
-        return intro();
-    }
-
-    console.log(sayHello4("Professor", "Falken")); // return "Greetings Professor Falken"
-
-    console.log('');
-    console.log('???');
-    const sayHello5 = function () {
-        let greetingMsg = "Greetings ";
-
-        function msgTo(firstName, lastName) {
-            greetingMsg = greetingMsg + firstName + " " + lastName;
+        function sayHello() {
+            console.log("Hello " + this.person);
         }
-        return {
-            sendGreeting: function (firstName, lastName) {
-                msgTo(firstName, lastName);
-            },
-            getMsg: function () {
-                return greetingMsg;
+        sayHello(); // returns Hello undefined
+        var tryAgain = sayHello.bind(myObj); // assigning the value of this to the object myObj
+        tryAgain(); // returns Hello Friend
+
+        console.log('');
+        console.log('call');
+        console.log('Not only can you define the execution context, but you can also pass information to the method that you want to execute');
+        function sayHello2(message) {
+            console.log(message, this.mainCharacter);
+        }
+
+        const characters = {
+            mainCharacter: "Elliot"
+        }
+
+        sayHello2.call(characters, "Hello "); // return Hello Elliot
+
+        console.log('');
+        console.log('apply');
+        console.log('Apply method expects an array');
+        function sayHello3(firstName, secondName, thirdName) {
+            console.log(this.message, firstName);
+            console.log(this.message, secondName);
+            console.log(this.message, thirdName);
+        }
+
+        const show = {
+            message: "Hello"
+        }
+        sayHello3(show, ["Elliot ", " Tyrell ", "Dominique "]);
+
+        console.log('');
+        console.log('Scopes');
+        function sayHello4(firstName, lastName) {
+            let msg = "Greetings ";
+            function intro() {
+                return msg + firstName + " " + lastName;
+            }
+            return intro();
+        }
+
+        console.log(sayHello4("Professor", "Falken")); // return "Greetings Professor Falken"
+
+        console.log('');
+        console.log('???');
+        const sayHello5 = function () {
+            let greetingMsg = "Greetings ";
+
+            function msgTo(firstName, lastName) {
+                greetingMsg = greetingMsg + firstName + " " + lastName;
+            }
+            return {
+                sendGreeting: function (firstName, lastName) {
+                    msgTo(firstName, lastName);
+                },
+                getMsg: function () {
+                    return greetingMsg;
+                }
             }
         }
-    }
-    const createMsg = sayHello5();
-    createMsg.sendGreeting("Professor", "Falken");
-    console.log(createMsg.getMsg()); // return "Greetings Professor Falken"
+        const createMsg = sayHello5();
+        createMsg.sendGreeting("Professor", "Falken");
+        console.log(createMsg.getMsg()); // return "Greetings Professor Falken"
 
-    // Events
-    console.log('');
-    console.log('addEventListener');
-    document.addEventListener("DOMContentLoaded", function () {
-        console.log(this); // return #document
-    });
-</script>
+        // Events
+        console.log('');
+        console.log('addEventListener');
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log(this); // return #document
+        });
+
+        console.log('');
+        console.log('Adding and removing event handler');
+        document.addEventListener("DOMContentLoaded", onPageLoad);
+        function onPageLoad() {
+            let theButton = document.getElementById("myButton");
+            theButton.addEventListener("click", handleButtonClick);
+            theButton.addEventListener("mouseover", mouseOverEvent);
+            theButton.addEventListener("mouseout", mouseOutEvent);
+        }
+        function handleButtonClick() {
+            console.log("button clicked");
+            let theButton = document.getElementById("myButton");
+            theButton.removeEventListener("click", handleButtonClick);
+        }
+        function mouseOverEvent() {
+            console.log('mouseover');
+        }
+        function mouseOutEvent() {
+            console.log("mouseout");
+        }
+
+        console.log('');
+        console.log('preventDefault');
+        document.addEventListener("DOMContentLoaded", onPageLoad2);
+        function onPageLoad2() {
+            let theButton = document.getElementById("myLink");
+            theButton.addEventListener("click", function (evt) {
+                evt.preventDefault();
+                console.log(evt);
+                console.log(evt.target);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", onPageLoad3);
+        function onPageLoad3() {
+            let myForm = document.querySelector("form");
+            myForm.addEventListener("submit", onSubmit);
+        }
+        function onSubmit(evt) {
+            console.log("form submitted");
+            evt.preventDefault();
+        }
+
+        console.log('');
+        console.log('Event bubbling');
+        document.addEventListener("DOMContentLoaded", onPageLoad4);
+        function onPageLoad4() {
+            let myButton = document.getElementById("myButton1");
+            myButton.addEventListener("click", onButtonClick);
+
+            let container = document.getElementById("container");
+            container.addEventListener("click", onContainerClick);
+
+            document.addEventListener("click", onDocumentClick);
+            window.addEventListener("click", onWindowClick);
+        }
+        function onButtonClick(evt) {
+            console.log("button clicked");
+        }
+        function onContainerClick(evt) {
+            console.log("container clicked");
+            evt.stopPropagation();
+        }
+        function onDocumentClick(evt) {
+            console.log("document clicked");
+        }
+        function onWindowClick(evt) {
+            console.log("window clicked");
+        }
+
+        console.log('');
+        console.log('Event capturing');
+        console.log('addEventListener 3rd parameter enables event capturing');
+        document.addEventListener("DOMContentLoaded", onPageLoad5);
+        function onPageLoad5() {
+            let myButton1 = document.getElementById("myButton1");
+            myButton1.addEventListener("click", onButtonClick, true); // true: enables event capturing
+            let container = document.getElementById("container");
+            container.addEventListener("click", onContainerClick, true);
+            document.addEventListener("click", onDocumentClick, true);
+            window.addEventListener("click", onWindowClick, true);
+        }
+
+        console.log('');
+        console.log('Custom events');
+        document.addEventListener("DOMContentLoaded", onPageLoad6);
+        function onPageLoad6() {
+            let myButton2 = document.getElementById("myButton2");
+            myButton2.addEventListener("click", onButtonClick2, true);
+            myButton2.addEventListener("WORLD_ENDING_EVENT", onWorldEnd);
+        }
+        function onButtonClick2(evt) {
+            let custEvent = new CustomEvent("WORLD_ENDING_EVENT", {
+                detail: {
+                    message: "And I feel fine"
+                }
+            });
+            let myButton2 = document.getElementById("myButton2");
+            myButton2.dispatchEvent(custEvent);
+        }
+        function onWorldEnd(evt) {
+            console.log(evt); // returns customEvetn {isTrusted: false, detail: {...}, type: "WORLD_ENDING_EVENT", target: button#myButton2,...}
+            console.log(evt.type); // returns WORLD_ENDING_EVENT
+            console.log(evt.detail); // returns {message: ...}
+        }
+
+        // Object-Oriented Programming
+        class Robot {
+            constructor(name, type) {
+                this.name = name;
+                this.type = type;
+                this.greeting = function () {
+                    return "I'm " + this.name + " I'm a " + this.type + ".";
+                }
+            }
+        }
+
+        // Inheritance
+        class BendingUnit extends Robot {
+            constructor(name, type) {
+                super(name, type);
+            }
+            primaryFunction() {
+                console.log(this.name + " bends things");
+            }
+        }
+
+        let bendingUnit = new BendingUnit("Bender", "Bending Robot");
+        bendingUnit.primaryFunction(); // returns Bender bends things.
+
+        // Prototypical Inheritance
+        const Robot2 = function (name, type) {
+            this.name = name;
+            this.type = type;
+        }
+        Robot2.prototype.greeting = function () { // if the property or method does not exist in the current object, it will look at the prototype property of the object
+            return "My name is " + this.name + " I'm a " + this.type + ".";
+        }
+        const BendingUnit2 = function () {
+            Robot2.apply(this, arguments); // apply tells the browser that the BendingUnit class can be used as a starting point to access the properties of Robot class
+        }
+        BendingUnit2.prototype = Object.create(Robot.prototype); // update the prototype object of the BendingUnit class
+        BendingUnit2.prototype.constuctor = BendingUnit2; // neccessary, becasuse it will know that even though it inherits functions from the Robot class, it itself is not the Robot
+        let bender = new Robot2("Bender", "Bending Robot");
+        console.log(bender.greeting()); // "My name is Bender I'm a Bending Robot."
+
+        // Frunctional Programming
+
+    </script>
 </head>
 <body>
-    Look at the console...
+    Look at the console...<br />
+    <button id="myButton">My Button</button><br />
+    <a href="www.google.com" id="myLink">My Link</a><br />
+    <form method="post" id="form">
+        <button type="submit">Submit form</button>
+    </form>
+    <p>Event bubbling</p>
+    <div id="container" style="border:1px; padding: 5px;">
+        <button id="myButton1">My Button 1</button>
+    </div>
+    <p>Custom events</p>
+    <button id="myButton2">My Button 2</button>
 </body>
 </html>
