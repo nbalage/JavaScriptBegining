@@ -285,7 +285,28 @@
         console.log(bender.greeting()); // "My name is Bender I'm a Bending Robot."
 
         // Frunctional Programming
+        // Pure functino
+        const timesTwo = (x) => x * 2;
+        timesTwo(2); // returns 4
+        timesTwo(3); // returns 6
 
+        // Immutabel
+        const twoArray = ["One", "Two"];
+        const threeArray = Object.assign([twoArray], { 2: "Three" });
+        console.log(threeArray);
+
+        // Imperative Code vs Declarative Code
+        const threeArray2 = ["One", "Two", "Three"];
+        // Imperative code describing how a program operates
+        console.log('Imperative Code');
+        for (let i = 0; i < threeArray2.length; i++) {
+            console.log(threeArray2[i]); // returns One, Two, Three
+        }
+        // Declarative code showing how a program should work
+        console.log('Declarative Code');
+        threeArray2.map((value, index, arr) => {
+            console.log(value); // return One, Two, Three
+        });
     </script>
 </head>
 <body>
